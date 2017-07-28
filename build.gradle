@@ -1,0 +1,59 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+compileJava.options.encoding = 'UTF-8'
+buildscript {
+  ext {
+    dependencyManagementPluginVersion = '0.6.0.RELEASE' 
+    springBootVersion = '1.4.4.RELEASE'
+  }
+  repositories{
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    jcenter()
+  }
+  dependencies {
+    classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath("net.researchgate:gradle-release:2.4.0")
+  }
+}
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    jcenter()
+}
+dependencyManagement {
+  imports {
+       mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.SR5'
+       mavenBom 'io.spring.platform:platform-bom:Athens-SR3'
+  }
+}
+idea {
+  module {
+    inheritOutputDirs = false
+    outputDir = file("$buildDir/classes/main/")
+  }
+}
+tasks.withType(JavaCompile) {  
+    options.encoding = "UTF-8"
+}
+
+
+dependencies{
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+  compile("org.springframework.boot:spring-boot-starter")
+  compile("org.springframework.boot:spring-boot-starter-web")
+  compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  
+  compile("mysql:mysql-connector-java:5.1.40")
+  compile("io.springfox:springfox-swagger-ui:2.5.0")
+  compile("io.springfox:springfox-swagger2:2.5.0")
+  compile("com.netflix.feign:feign-okhttp:8.18.0")
+  compile("com.squareup.okhttp3:okhttp:3.5.0")
+  compile("com.h2database:h2")
+  compile("com.alibaba:fastjson:1.2.22")
+  compile("com.google.guava:guava:20.0")
+}

@@ -1,0 +1,23 @@
+
+logging.level.root: DEBUG
+server.port: 8000
+spring:
+  application:
+    name: jpatest
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: root
+    initialize: false  #不自动导入sql
+  datasource2:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: root
+    initialize: false  #不自动导入sql
+  jpa:
+    hibernate:
+      ddl-auto: update 
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
